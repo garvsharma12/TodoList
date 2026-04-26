@@ -22,6 +22,16 @@ public class ToDoService {
         taskRepository.save(task);
     }
 
+    public static void deleteTask(Long id) {
+        taskRepository.deleteById(id);
+    }
+
+    public static void toggleTask(Long id) {
+        Task task = taskRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Task not found"));
+        task.setCompleted(!task.isCompleted());
+        taskRepository.save(task);
+    }
+
     public List<Task> getAllTasks() {
         return taskRepository.findAll();
     }

@@ -4,10 +4,7 @@ import com.draig.todolist.Services.ToDoService;
 import com.draig.todolist.model.Task;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -30,6 +27,18 @@ public class TaskController {
     @PostMapping
     public String createTask(@RequestParam String title){
         ToDoService.createTask(title);
+        return "redirect:/";
+    }
+
+    @GetMapping("/{id}/delete")
+    public String deleteTask(@PathVariable Long id){
+        ToDoService.deleteTask(id);
+        return "redirect:/";
+    }
+
+    @GetMapping("/{id}/toggle")
+    public String toggleTask(@PathVariable Long id){
+        ToDoService.toggleTask(id);
         return "redirect:/";
     }
 }
