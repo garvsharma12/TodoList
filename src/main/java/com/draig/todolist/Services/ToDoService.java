@@ -9,10 +9,17 @@ import java.util.List;
 @Service
 public class ToDoService {
 
-    private final TaskRepository taskRepository;
+    private static TaskRepository taskRepository;
 
     public ToDoService(TaskRepository taskRepository) {
-        this.taskRepository = taskRepository;
+        ToDoService.taskRepository = taskRepository;
+    }
+
+    public static void createTask(String title) {
+        Task task = new Task();
+        task.setTitle(title);
+        task.setCompleted(false);
+        taskRepository.save(task);
     }
 
     public List<Task> getAllTasks() {
