@@ -9,25 +9,27 @@ import java.util.List;
 @Service
 public class ToDoService {
 
-    private static TaskRepository taskRepository;
+    private final TaskRepository taskRepository;
 
     public ToDoService(TaskRepository taskRepository) {
-        ToDoService.taskRepository = taskRepository;
+        this.taskRepository = taskRepository;
     }
 
-    public static void createTask(String title) {
+    public void createTask(String title) {
         Task task = new Task();
         task.setTitle(title);
         task.setCompleted(false);
         taskRepository.save(task);
     }
 
-    public static void deleteTask(Long id) {
+    public void deleteTask(Long id) {
         taskRepository.deleteById(id);
     }
 
-    public static void toggleTask(Long id) {
-        Task task = taskRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Task not found"));
+    public void toggleTask(Long id) {
+        Task task = taskRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Task not found"));
+
         task.setCompleted(!task.isCompleted());
         taskRepository.save(task);
     }
